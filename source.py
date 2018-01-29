@@ -46,9 +46,9 @@ def order_details(order_id):
         print('Problemas na Conexao')
 
 
-orders_numbers = list_order_today()
-for order_number in orders_numbers:
-    print(order_details(order_number['ID']))
+# orders_numbers = list_order_today()
+# for order_number in orders_numbers:
+#     print(order_details(order_number['ID']))
 
 
 
