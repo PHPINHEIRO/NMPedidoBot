@@ -2,8 +2,8 @@ import requests,os,json
 from datetime import datetime
 
 '''
- git remote add origin git@bitbucket.org:PedroHenrique/nmpedidobot.git git
- push -u origin master
+ git remote add origin git@bitbucket.org:PedroHenrique/nmpedidobot.git
+ git push -u origin master
 '''
 
 
