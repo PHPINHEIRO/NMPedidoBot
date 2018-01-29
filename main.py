@@ -1,11 +1,6 @@
 import requests,os,json
 from datetime import datetime
 
-'''
- git remote add origin git@bitbucket.org:PedroHenrique/nmpedidobot.git
- git push -u origin master
-'''
-
 
 CHAVE_API = os.environ.get('API_LOJAINTEGRADA_TOKEN')
 CHAVE_APLICACAO = os.environ.get('LOJAINTEGRADA_APLICACAO_TOKEN')
@@ -34,27 +29,26 @@ def list_order_today():
 def order_details(order_id):
 
     url = '/pedido/'+str(order_id)+'/?&format=json'+URL_AUTH+''
-    req = requests.get(API_LOJAINTEGRADA_BASE_URL+url)
-    response = json.loads(req.text)
-    print(response)
-    # order_basic_info = []
-    #
-    # for res in response['objects']:
-    #     order_basic_info.append({
-    #
-    #         'numero':res['numero'],
-    #         'cliente':res['cliente'],
-    #         'detalhe_url':res['resource_uri'],
-    #         'situacao':res['situacao']['nome'],
-    #         'valor_total':res['valor_total']
-    #
-    #     })
-    # return order_basic_info
+    try:
+        req = requests.get(API_LOJAINTEGRADA_BASE_URL+url)
+        if(req.status_code==200):
+            api_response = json.loads(req.text)
+            order_basic_info = []
+            order_basic_info.append({
+                'cliente':api_response['cliente']['nome'],
+                'envio':api_response['envios'][0]['forma_envio']['nome'],
+                'forma_pagamento':api_response['pagamentos'][0]['forma_pagamento']['nome'],
+                'forma_pagamento_icon':api_response['pagamentos'][0]['forma_pagamento']['imagem'],
+                'valor_total':api_response['valor_total']
+            })
+        return order_basic_info
+    except:
+        print('Problemas na Conexao')
 
 
 orders_numbers = list_order_today()
+print(order_details(orders_numbers[0]['ID']))
 
-print(orders_numbers)
 
 
 
