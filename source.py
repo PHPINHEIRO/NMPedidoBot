@@ -47,9 +47,8 @@ def order_details(order_id):
 
 
 orders_numbers = list_order_today()
-print(order_details(orders_numbers[0]['ID']))
-
-
+for order_number in orders_numbers:
+    print(order_details(order_number['ID']))
 
 
 
