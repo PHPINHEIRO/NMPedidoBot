@@ -36,32 +36,35 @@ def start(bot, update):
 
     start_message = (
         "Bem vindo ao NMPedidoBot "+smile+"\n\n"
-        "A cada minuto o bot verifica se tem novos pedidos na loja integrada,"
-        "caso tenha pedido(s) novo(s), sera(o) mostrado(s)\n\n"
-        "Para mais informacoes consulte o /help"
+        "O objetivo deste bot verifica se tem novos pedidos na loja integrada.\n"
+        "Consulte o /help para saber como configurar o bot"
 
     )
     update.message.reply_text(start_message)
 
 def help(bot, update):
-
+    smile = emojize(":smile:", use_aliases=True)
+    clock = emojize(":clock10:", use_aliases=True)
+    cancel= emojize(":x:", use_aliases=True)
+    look= emojize(":mag:", use_aliases=True)
     help_message = (
-
-        "/set <segundos> para configurar o intervalo de atualizacoes.\n"
-        "/unset para cancelar a atualizacao.\n"
-        "/detalhe <numero_pedido> para saber mais detalhe do pedido.\n"
+        "Bem vindo ao help do NMPedidoBot "+smile+"\n\n"
+        "Abaixo nos mostramos os comandos que vc pode usar para configurar o bot\n\n"
+        ""+clock+" /set <segundos> para configurar o intervalo de atualizacoes.\n\n"
+        ""+cancel+" /unset para cancelar a atualizacao.\n\n"
+        ""+look+" /detalhe <numero_pedido> para saber mais detalhe do pedido.\n"
 
     )
     update.message.reply_text(help_message)
 
 def alarm(bot, job):
-    orders_numbers=list_order_today()
-    if(len(orders_numbers)!=0):
-        for order_number in orders_numbers:
+    orders_numbers=list_order_today() #pega a lista dos pedidos do dia
+    if(len(orders_numbers)!=0):# tem pedido?
+        for order_number in orders_numbers: # sim, exibe os pedidos
             text = pedido_detalhe(order_number['ID'])
             bot.send_message(job.context, text=text)
     else:
-        bot.send_message(job.context, text='Sem novos pedidos')
+        bot.send_message(job.context, text='Sem novos pedidos')# nao tem
 
 def set_timer(bot, update, args, job_queue, chat_data):
     """Add a job to the queue."""
@@ -76,8 +79,8 @@ def set_timer(bot, update, args, job_queue, chat_data):
         # Add job to queue
         job = job_queue.run_repeating(alarm, due, context=chat_id)
         chat_data['job'] = job
-
-        update.message.reply_text('Intervalo das notificacoes setado com sucesso')
+        check = emojize(":white_check_mark:", use_aliases=True)
+        update.message.reply_text('Intervalo das notificacoes setado com sucesso '+check+'')
 
     except (IndexError, ValueError):
         update.message.reply_text('Exemplo: /set <seconds>')
@@ -92,8 +95,8 @@ def unset(bot, update, chat_data):
     job = chat_data['job']
     job.schedule_removal()
     del chat_data['job']
-
-    update.message.reply_text('Notificacao cancelada com sucesso')
+    check = emojize(":white_check_mark:", use_aliases=True)
+    update.message.reply_text('Notificacao cancelada com sucesso'+check+'')
 
 
 def bot_main():
