@@ -10,15 +10,14 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 def pedido_detalhe(num_ped):
-    order_id = ' '.join(num_ped)
-    order_detail = order_details(order_id)
+    order_detail = order_details(num_ped)
     dolar = emojize(":dollar:", use_aliases=True)
     pedido = emojize(":pencil:", use_aliases=True)
     cliente = emojize(":dog:", use_aliases=True)
     envio = emojize(":package:", use_aliases=True)
     forma_pagamento = emojize(":moneybag:", use_aliases=True)
     caption = (
-        " "+pedido+" -> "+order_id+"\n"
+        " "+pedido+" -> "+str(num_ped)+"\n"
         " "+cliente+" -> "+order_detail[0]['cliente']+"\n"
         " "+envio+" -> "+order_detail[0]['envio']+"\n"
         " "+forma_pagamento+" -> "+order_detail[0]['forma_pagamento']+"\n"
@@ -27,7 +26,8 @@ def pedido_detalhe(num_ped):
     return caption
 
 def detalhe(bot,update,args):
-    caption=pedido_detalhe(args)
+    order_id = ' '.join(args)
+    caption=pedido_detalhe(order_id)
     bot.send_message(chat_id=update.message.chat_id,text=caption)
 
 def start(bot, update):
@@ -50,7 +50,6 @@ def help(bot, update):
         "/set <segundos> para configurar o intervalo de atualizacoes.\n"
         "/unset para cancelar a atualizacao.\n"
         "/detalhe <numero_pedido> para saber mais detalhe do pedido.\n"
-
 
     )
     update.message.reply_text(help_message)
