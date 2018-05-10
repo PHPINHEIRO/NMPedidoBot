@@ -1,29 +1,14 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Descricao ###
 
-### What is this repository for? ###
+Esse repositório contem um simples Bot para o telegram, feito em python usando a lib [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot).
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+### Problema ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Na empresa onde eu trabalhava, tinhamos um problema que quando um cliente fazia um pedido no site, o mesmo demorava ou até mesmo não era notificado. Então diante dessa dificuldade, resolvi criar um bot para o telegram para nos notificar quando um pedido fosse realizado.
 
-### Contribution guidelines ###
+### Funcionamento ###
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+O bot faz consultas através da API da [Loja Integrada](https://lojaintegrada.com.br/) em intervalos de tempo pré determinados, e verifica se teve nos pedidos no dia.
