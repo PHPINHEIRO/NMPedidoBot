@@ -1,6 +1,6 @@
 # README #
 
-### Descricao ###
+### Descrição ###
 
 Esse repositório contem um simples Bot para o telegram, feito em python usando a lib [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot).
 
